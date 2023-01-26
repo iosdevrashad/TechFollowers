@@ -25,15 +25,19 @@ class GFEmptyStateView: UIView {
         messageLabel.text = message
     }
     
+    convenience init(multiFontMessage: NSAttributedString) {
+        self.init(frame: .zero)
+        messageLabel.attributedText = multiFontMessage
+    }
+    
     private func configure() {
         addSubviews(messageLabel, logoImageView)
         configureMessageLabel()
         configureLogoImageView()
-        
     }
     
     private func configureMessageLabel() {
-        messageLabel.numberOfLines                              = 3
+        messageLabel.numberOfLines                              = 0
         messageLabel.textColor                                  = .secondaryLabel
         
         let labelCenterYConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -80 : -150

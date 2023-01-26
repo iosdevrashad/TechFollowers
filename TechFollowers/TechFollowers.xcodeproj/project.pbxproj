@@ -45,6 +45,7 @@
 		DCA1A1DC29804382007B6B4E /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A1D829804382007B6B4E /* UserInfoVC.swift */; };
 		DCA1A1DD29804382007B6B4E /* FollowersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A1D929804382007B6B4E /* FollowersListVC.swift */; };
 		DCA1A1DE29804382007B6B4E /* FavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A1DA29804382007B6B4E /* FavoritesListVC.swift */; };
+		DCA1A20029820038007B6B4E /* FollowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA1A1FF29820038007B6B4E /* FollowerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		DCA1A1D829804382007B6B4E /* UserInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoVC.swift; sourceTree = "<group>"; };
 		DCA1A1D929804382007B6B4E /* FollowersListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowersListVC.swift; sourceTree = "<group>"; };
 		DCA1A1DA29804382007B6B4E /* FavoritesListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesListVC.swift; sourceTree = "<group>"; };
+		DCA1A1FF29820038007B6B4E /* FollowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +278,7 @@
 			children = (
 				DCA1A1D329804342007B6B4E /* FavoriteCell.swift */,
 				DCA1A1D229804341007B6B4E /* FollowerCell.swift */,
+				DCA1A1FF29820038007B6B4E /* FollowerView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCA1A20029820038007B6B4E /* FollowerView.swift in Sources */,
 				DCA1A1BF29804262007B6B4E /* GFRepoItemVC.swift in Sources */,
 				DCA1A1AB298041D3007B6B4E /* GFTabBarController.swift in Sources */,
 				DCA1A1A329804178007B6B4E /* UITableView+Ext.swift in Sources */,

@@ -45,6 +45,16 @@ class GFDataLoadingVC: UIViewController {
         emptyStateView.frame = view.bounds
         view.addSubview(emptyStateView)
     }
+    
+    func showEmptyStateViewWithAttributedString(with message: String, userName: String, in view: UIView) {
+        let attributedString = NSMutableAttributedString(string: message)
+        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 30, weight: .heavy), range: NSRange(location: 0, length: userName.count))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.systemPurple, range: NSRange(location: 0, length: userName.count))
+        let emptyStateView = GFEmptyStateView(multiFontMessage: attributedString)
+        emptyStateView.frame = view.bounds
+        view.addSubview(emptyStateView)
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()

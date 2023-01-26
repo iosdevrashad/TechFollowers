@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol UserListVCDelegate: AnyObject {
+protocol UserInfoVCDelegate: AnyObject {
     func didRequestFollowers(for userName: String)
 }
 
@@ -19,7 +19,7 @@ class UserInfoVC: GFDataLoadingVC {
     var itemViews: [UIView] = []
     
     var userName: String!
-    weak var delegate: UserListVCDelegate!
+    weak var delegate: UserInfoVCDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +35,17 @@ class UserInfoVC: GFDataLoadingVC {
     }
     
     func getUserInfo() {
-        NetworkManager.shared.getUserInfo(for: userName) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let user):
-                DispatchQueue.main.async {
-                    self.configureUIElements(with: user)
+        
+        Task {
+            do {
+                let user = try await NetworkManager.shared.getUserInfo(for: userName)
+                configureUIElements(with: user)
+            } catch {
+                if let gfError = error as? GFError {
+                    presentGFAlert(title: "Something ain't right", message: gfError.rawValue, buttonTitle: "Alrighty.")
+                } else {
+                    presentDefaultError()
                 }
-                
-            case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Alrighty")
             }
         }
     }
@@ -88,24 +88,24 @@ class UserInfoVC: GFDataLoadingVC {
             dateLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
-    
-    func add(ChildVC: UIViewController, to containerView: UIView) {
-        addChild(ChildVC)
-        containerView.addSubview(ChildVC.view)
-        ChildVC.view.frame = containerView.bounds
-        ChildVC.didMove(toParent: self)
-    }
 
-    @objc func dismissVC() {
-        dismiss(animated: true)
-    }
+func add(ChildVC: UIViewController, to containerView: UIView) {
+    addChild(ChildVC)
+    containerView.addSubview(ChildVC.view)
+    ChildVC.view.frame = containerView.bounds
+    ChildVC.didMove(toParent: self)
+}
+
+@objc func dismissVC() {
+    dismiss(animated: true)
+}
 }
 
 extension UserInfoVC: GFRepoItemVCDelegate {
     
     func didTapGitHubProfile(for user: User) {
         guard let url = URL(string: user.htmlUrl) else {
-            presentGFAlertOnMainThread(title: "Invalid URL", message: "Url is currently invalid.", buttonTitle: "Ok.")
+            presentGFAlert(title: "Invalid URL", message: "Url is currently invalid.", buttonTitle: "Ok.")
             return
         }
         presentSafariVC(with: url)
@@ -116,7 +116,7 @@ extension UserInfoVC: GFFollowerItemVCDelegate {
     
     func didTapGetFollowers(for user: User) {
         guard user.followers != 0 else {
-            presentGFAlertOnMainThread(title: "Well Shoot!", message: "This user doesn't have any followers.", buttonTitle: "Alrighty")
+            presentGFAlert(title: "Well Shoot!", message: "This user doesn't have any followers.", buttonTitle: "Alrighty")
             return
         }
         delegate.didRequestFollowers(for: user.login)
